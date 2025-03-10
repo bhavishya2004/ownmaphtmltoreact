@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty World Map</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        canvas {
+            border: 2px solid black;
+            background-color: #C8E6C9; /* Light green for oceans */
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Empty World Map (Drawn on Canvas)</h1>
+    <canvas id="mapCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("mapCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Set canvas size
+        canvas.width = 800;
+        canvas.height = 400;
+
+        // Draw Background (Ocean)
+        ctx.fillStyle = "#C8E6C9";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Simple Continents (Example Shapes)
+        ctx.fillStyle = "brown";
+        
+        // Continent 1 (Example Shape)
+        ctx.beginPath();
+        ctx.moveTo(150, 250);
+        ctx.lineTo(200, 200);
+        ctx.lineTo(250, 230);
+        ctx.lineTo(230, 270);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Continent 2 (Example Shape)
+        ctx.beginPath();
+        ctx.moveTo(500, 200);
+        ctx.lineTo(550, 150);
+        ctx.lineTo(600, 180);
+        ctx.lineTo(580, 220);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Continent 3 (Example Shape)
+        ctx.beginPath();
+        ctx.moveTo(300, 350);
+        ctx.lineTo(400, 300);
+        ctx.lineTo(450, 320);
+        ctx.lineTo(400, 370);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    </script>
+
+</body>
+</html>

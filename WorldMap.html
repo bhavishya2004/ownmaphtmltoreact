@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Map (All Countries)</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        canvas {
+            border: 2px solid black;
+            display: block;
+            margin: auto;
+            background-color: #C8E6C9; /* Light green for water */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>World Map (All Countries)</h1>
+    <canvas id="mapCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("mapCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Canvas size
+        canvas.width = 800;
+        canvas.height = 400;
+
+        // Load world map data (Topographic JSON)
+        d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(worldData => {
+            const countries = topojson.feature(worldData, worldData.objects.countries);
+
+            // Define projection
+            const projection = d3.geoNaturalEarth1()
+                .translate([canvas.width / 2, canvas.height / 2])
+                .scale(130);
+
+            const path = d3.geoPath(projection, ctx);
+
+            // Draw all countries
+            ctx.fillStyle = "brown";
+            ctx.strokeStyle = "black";
+
+            countries.features.forEach(feature => {
+                ctx.beginPath();
+                path(feature);
+                ctx.fill();
+                ctx.stroke();
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Map App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        canvas {
+            border: 2px solid black;
+            background-color: #C8E6C9; /* Light green for land */
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Custom Map Application</h1>
+    <canvas id="mapCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("mapCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Canvas Size
+        canvas.width = 600;
+        canvas.height = 400;
+
+        // Draw Background (Land)
+        ctx.fillStyle = "#C8E6C9";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Roads
+        ctx.strokeStyle = "#8B5A2B"; // Brown color for roads
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(50, 100);
+        ctx.lineTo(550, 100);
+        ctx.lineTo(550, 350);
+        ctx.stroke();
+
+        // Draw River
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(100, 50);
+        ctx.lineTo(400, 350);
+        ctx.stroke();
+
+        // Draw a few "Locations" (Example: City, Park, etc.)
+        function drawLocation(x, y, color, label) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = "black";
+            ctx.font = "14px Arial";
+            ctx.fillText(label, x + 12, y + 5);
+        }
+
+        // Marking different locations
+        drawLocation(100, 100, "red", "City");
+        drawLocation(300, 200, "blue", "Lake");
+        drawLocation(500, 300, "green", "Park");
+
+        // User Click Interaction (Mark new locations)
+        canvas.addEventListener("click", function(event) {
+            let rect = canvas.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+
+            drawLocation(x, y, "purple", "New Place");
+        });
+    </script>
+
+</body>
+</html>
