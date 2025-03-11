@@ -141,30 +141,27 @@
 // // }
 
 // // generateWorldData();
-
-
-
 const express = require('express');
 const fs = require('fs');
-const axios = require('axios');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 
-// API URLs
-const API_COUNTRIES_STATES = "https://countriesnow.space/api/v0.1/countries/states";
-const API_COUNTRY_DETAILS = "https://restcountries.com/v3.1/all";
+// Local JSON file paths
+const API_COUNTRIES_STATES = path.join(__dirname, '../reactownmap/public/countriesandstates.json');
+const API_COUNTRY_DETAILS = path.join(__dirname, '../reactownmap/public/allcountriesdetails.json');
 
-// Function to fetch data from an API
-async function fetchData(url) {
+// Function to fetch data from a local JSON file
+async function fetchData(filePath) {
     try {
-        const response = await axios.get(url);
-        return response.data;
+        const data = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(data);
     } catch (error) {
-        console.error(`Error fetching data from ${url}:`, error.message);
+        console.error(`Error reading data from ${filePath}:`, error.message);
         return null;
     }
 }
